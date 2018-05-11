@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Provider} from 'react-redux';
-import AppContainer from './AppContainer.js';
+import { Provider } from 'react-redux';
+import AppContainer from './AppContainer.jsx';
 import DevTools from './DevTools';
 
 export default function Root({ store }) {

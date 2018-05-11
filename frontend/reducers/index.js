@@ -1,7 +1,7 @@
-function rootReducer(state = {name: 'Horizons'}, action) {
+function rootReducer(state = { name: 'My Title' }, action) {
   switch (action.type) {
     default:
-    return state;
+      return state;
   }
 }
 
