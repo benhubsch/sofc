@@ -2,13 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Title from '../components/Title';
-import BasicSheet from '../components/BasicSheet';
+import ProgrammingSheet from '../components/ProgrammingSheet';
 
 const AppContainer = ({ name }) => {
   return (
-    <div>
-      <Title name={ name } />
-      <BasicSheet />
+    {/* <Title name={ name } /> */}
+    <div className={'container'}>
+      <div className={'sheet-container'}>
+        <ProgrammingSheet />
+      </div>
     </div>
   );
 };
