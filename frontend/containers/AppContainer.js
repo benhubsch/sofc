@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Title from '../components/Title';
 import ProgrammingSheet from '../components/ProgrammingSheet';
 
-const AppContainer = ({ name }) => {
+const AppContainer = () => {
   return (
-    {/* <Title name={ name } /> */}
     <div className={'container'}>
       <div className={'sheet-container'}>
         <ProgrammingSheet />
