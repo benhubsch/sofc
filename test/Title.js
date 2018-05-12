@@ -7,10 +7,10 @@ import Title from '../frontend/components/Title';
 describe('Component: App', () => {
   it('should render the App component', () => {
     const wrapper = shallow(
-      <Title name="My Title" />
+      <Title name="Horizons" />
     );
 
-    expect(wrapper.find('h1').text()).toEqual('My Title');
+    expect(wrapper.find('h1').text()).toEqual('Horizons');
   });
 
   it('should run a solid smoke test', () => {
