@@ -1,25 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import ProgrammingSheet from '../components/ProgrammingSheet';
+import EmailBox from '../components/EmailBox.js';
 
 const AppContainer = () => {
   return (
-    <div className={'container'}>
-      <div className={'sheet-container'}>
-        <ProgrammingSheet />
-      </div>
-    </div>
+    <EmailBox />
   );
 };
 
 AppContainer.propTypes = {
-  name: PropTypes.string
 };
 
 const mapStateToProps = (state) => {
   return {
-    name: state.name
   };
 };
 
