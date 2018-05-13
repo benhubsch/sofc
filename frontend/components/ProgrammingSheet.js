@@ -5,52 +5,57 @@ import DataSheet from 'react-datasheet';
 import { Map, List, fromJS } from 'immutable';
 import 'react-datasheet/lib/react-datasheet.css';
 
+const HEADERS = ['', 'Requested', 'Granted', 'Spent'];
+const NUM_ROWS = 10;
+
 export default class ProgrammingSheet extends React.Component {
+
   constructor(props) {
     super(props);
     this.onCellsChanged = this.onCellsChanged.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.format = this.format.bind(this);
     this.state = {
-      grid: [
-        [
-          { readOnly: true, value: '' },
-          { readOnly: true, value: 'Request' },
-          { readOnly: true, value: 'SOFC Grant' },
-          { readOnly: true, value: 'Amount Spent' }
-        ],
-        [
-          { readOnly: true, value: 'Item 1' },
-          { key: 'B1', value: '', expr: '' },
-          { key: 'C1', value: '', expr: '' },
-          { key: 'D1', value: '', expr: '' }
-        ],
-        [
-          { readOnly: true, value: 'Item 2' },
-          { key: 'B2', value: '', expr: '' },
-          { key: 'C2', value: '', expr: '' },
-          { key: 'D2', value: '', expr: '' }
-        ],
-        [
-          { readOnly: true, value: 'Item 3' },
-          { key: 'B3', value: '', expr: '' },
-          { key: 'C3', value: '', expr: '' },
-          { key: 'D3', value: '', expr: '' }
-        ],
-        [
-          { readOnly: true, value: 'Item 4' },
-          { key: 'B4', value: '', expr: '' },
-          { key: 'C4', value: '', expr: '' },
-          { key: 'D4', value: '', expr: '' }
-        ],
-        [
-          { readOnly: true, value: 'Total' },
-          { readOnly: true, value: '0.0', expr: '=B1+B2+B3+B4', className: 'equation' },
-          { readOnly: true, value: '0.0', expr: '=C1+C2+C3+C4', className: 'equation' },
-          { readOnly: true, value: '0.0', expr: '=D1+D2+D3+D4', className: 'equation' }
-        ]
-      ]
+      grid: this.buildGrid()
     };
+  }
+
+  buildGrid() {
+    var grid = [];
+    grid.push(HEADERS.map((header) => {
+      return { readOnly: true, value: header };
+    }));
+
+    for (let r = 1; r <= NUM_ROWS; r++) {
+      grid.push(this.addRow(r));
+    }
+
+    var totals = [{ readOnly: true, value: 'Total' }];
+    for (var col = 1; col < HEADERS.length; col++) {
+      const expr = '=' + this.getTotalExpression(NUM_ROWS, 1, col);
+      totals.push({ readOnly: true, value: '0.0', expr, className: 'equation' });
+    }
+    grid.push(totals);
+    return grid;
+  }
+
+  addRow(r) {
+    const row = Array(HEADERS.length).fill().map((cell, c) => {
+      return { key: this.getKey(r, c), value: '', expr: '' };
+    });
+    row[0] = _.assign(row[0], { readOnly: true });
+    return row;
+  }
+
+  getTotalExpression(maxRows, r, c) {
+    if (r >= maxRows) {
+      return this.getKey(r, c);
+    }
+    return this.getKey(r, c) + '+' + this.getTotalExpression(maxRows, r + 1, c);
+  }
+
+  getKey(r, c) {
+    return String.fromCharCode(65 + c) + r.toString();
   }
 
   computeExpr(expr, vars) {
@@ -150,16 +155,15 @@ export default class ProgrammingSheet extends React.Component {
 
   handleClick() {
     const grid = this.state.grid.map(row => [...row]);
-    var item = [
-      { readOnly: true, value: 'Item 5' },
-      { key: 'B5', value: '', expr: '' },
-      { key: 'C5', value: '', expr: '' },
-      { key: 'D5', value: '', expr: '' }
-    ];
-    grid.splice(grid.length - 1, 0, item);
-    grid[6][1].expr += '+B5';
-    grid[6][2].expr += '+C5';
-    grid[6][3].expr += '+D5';
+    var row = this.addRow(grid.length - 1);
+    grid.splice(grid.length - 1, 0, row);
+    console.log('grid', grid);
+
+    for (var col = 1; col < HEADERS.length; col++) {
+      console.log('before', grid[grid.length - 1][col].expr);
+      grid[grid.length - 1][col].expr += '+' + this.getKey(grid.length - 2, col);
+      console.log('after', grid[grid.length - 1][col].expr);
+    }
     this.setState({ grid });
   }
 
