@@ -2,11 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
+import { buildGrid, addRow } from './GridCreator.js';
 import { Map, List, fromJS } from 'immutable';
 import 'react-datasheet/lib/react-datasheet.css';
-
-const HEADERS = ['', 'Requested', 'Granted', 'Spent'];
-const NUM_ROWS = 10;
 
 export default class ProgrammingSheet extends React.Component {
 
@@ -16,46 +14,8 @@ export default class ProgrammingSheet extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.format = this.format.bind(this);
     this.state = {
-      grid: this.buildGrid()
+      grid: buildGrid()
     };
-  }
-
-  buildGrid() {
-    var grid = [];
-    grid.push(HEADERS.map((header) => {
-      return { readOnly: true, value: header };
-    }));
-
-    for (let r = 1; r <= NUM_ROWS; r++) {
-      grid.push(this.addRow(r));
-    }
-
-    var totals = [{ readOnly: true, value: 'Total' }];
-    for (var col = 1; col < HEADERS.length; col++) {
-      const expr = '=' + this.getTotalExpression(NUM_ROWS, 1, col);
-      totals.push({ readOnly: true, value: '0.0', expr, className: 'equation' });
-    }
-    grid.push(totals);
-    return grid;
-  }
-
-  addRow(r) {
-    const row = Array(HEADERS.length).fill().map((cell, c) => {
-      return { key: this.getKey(r, c), value: '', expr: '' };
-    });
-    row[0] = _.assign(row[0], { readOnly: true });
-    return row;
-  }
-
-  getTotalExpression(maxRows, r, c) {
-    if (r >= maxRows) {
-      return this.getKey(r, c);
-    }
-    return this.getKey(r, c) + '+' + this.getTotalExpression(maxRows, r + 1, c);
-  }
-
-  getKey(r, c) {
-    return String.fromCharCode(65 + c) + r.toString();
   }
 
   computeExpr(expr, vars) {
@@ -154,16 +114,7 @@ export default class ProgrammingSheet extends React.Component {
   }
 
   handleClick() {
-    const grid = this.state.grid.map(row => [...row]);
-    var row = this.addRow(grid.length - 1);
-    grid.splice(grid.length - 1, 0, row);
-    console.log('grid', grid);
-
-    for (var col = 1; col < HEADERS.length; col++) {
-      console.log('before', grid[grid.length - 1][col].expr);
-      grid[grid.length - 1][col].expr += '+' + this.getKey(grid.length - 2, col);
-      console.log('after', grid[grid.length - 1][col].expr);
-    }
+    const grid = addRow(this.state.grid);
     this.setState({ grid });
   }
 
