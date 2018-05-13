@@ -4,10 +4,7 @@ import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
 import { buildGrid, addRow } from './GridUtils.js';
 import classNames from 'classnames';
-import 'react-datasheet/lib/react-datasheet.css';
-import '../assets/stylesheets/datasheet.css';
 
-// ideally if someone enters something non-numeric they get a message about it
 export default class ProgrammingSheet extends React.Component {
 
   constructor(props) {
@@ -115,22 +112,36 @@ export default class ProgrammingSheet extends React.Component {
 
   format(cell, i, j) {
     if (this.isNumeric(cell.value) && i > 0 && j > 0) {
-      var decimal = parseFloat(cell.value).toFixed(2);
+      var decimal = parseFloat(cell.value).toFixed(2).toString();
+      if (decimal < 0) {
+        return decimal.slice(0, 1) + '$' + decimal.slice(1);
+      }
       return '$' + decimal.toString();
     }
     return cell.value;
   }
 
-  handleClick() {
-    const grid = addRow(this.state.grid);
+  handleClick(isAdd) {
+    let grid;
+    if (isAdd) {
+      grid = addRow(this.state.grid);
+    } else {
+      grid = this.state.grid.map(row => [...row]);
+      if (grid.length > 3) {
+        grid.splice(grid.length - 2, 1);
+      }
+    }
     this.setState({ grid });
   }
 
   render() {
     return (
       <div>
-        <a href="#" onClick={this.handleClick}>
-          Click me
+        <a href="#" onClick={() => this.handleClick(true)}>
+          Add Rows
+        </a>
+        <a href="#" onClick={() => this.handleClick(false)}>
+          Remove Rows
         </a>
         <DataSheet
           data={this.state.grid}

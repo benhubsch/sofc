@@ -3,7 +3,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import AppContainer from './AppContainer.js';
 import DevTools from './DevTools';
-import '../assets/stylesheets/index.css';
 
 export default function Root({ store }) {
   return (
