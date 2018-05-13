@@ -3,8 +3,11 @@ import _ from 'lodash';
 import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
 import { buildGrid, addRow } from './GridUtils.js';
+import classNames from 'classnames';
 import 'react-datasheet/lib/react-datasheet.css';
+import '../assets/stylesheets/datasheet.css';
 
+// ideally if someone enters something non-numeric they get a message about it
 export default class ProgrammingSheet extends React.Component {
 
   constructor(props) {
@@ -89,6 +92,11 @@ export default class ProgrammingSheet extends React.Component {
   }
 
   cellUpdate(grid, row, col, oldCell, expr) {
+    if (col === 0) {
+      grid[row][col] = _.assign(oldCell, { value: expr, expr });
+      return grid[row][col];
+    }
+
     const vars = this.buildVars(grid);
     const updatedCell = this.createUpdatedCell(oldCell, expr, vars);
     grid[row][col] = updatedCell;
@@ -121,15 +129,30 @@ export default class ProgrammingSheet extends React.Component {
   render() {
     return (
       <div>
-        <DataSheet
-          data={this.state.grid}
-          valueRenderer={this.format}
-          dataRenderer={(cell) => cell.expr}
-          onCellsChanged={this.onCellsChanged}
-        />
         <a href="#" onClick={this.handleClick}>
           Click me
         </a>
+        <DataSheet
+          data={this.state.grid}
+          valueRenderer={this.format}
+          dataRenderer={cell => cell.expr}
+          onCellsChanged={this.onCellsChanged}
+          cellRenderer={props => {
+            const margin = props.cell.margin ? 'margin' : null;
+            const left = props.cell.left ? 'left' : null;
+            return (
+            <td
+              className={classNames(props.className, margin, left)}
+              onMouseDown={props.onMouseDown}
+              onMouseOver={props.onMouseOver}
+              onDoubleClick={props.onDoubleClick}
+            >
+              {props.children}
+            </td>
+            );
+          }
+        }
+      />
       </div>
     );
   }

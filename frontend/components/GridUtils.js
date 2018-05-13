@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const HEADERS = ['', 'Requested', 'Granted', 'Spent'];
 const NUM_ROWS = 10;
 const START_CAPITALS_ASCII = 65;
@@ -25,10 +23,10 @@ export const addRow = (oldGrid) => {
 };
 
 const createTotals = (grid) => {
-  var totals = [{ readOnly: true, value: TOTAL }];
+  var totals = [{ readOnly: true, value: TOTAL, margin: true, left: false }];
   for (var col = 1; col < HEADERS.length; col++) {
     const expr = '=' + getTotalExpr(NUM_ROWS, 1, col);
-    totals.push({ readOnly: true, value: '0.0', expr, className: 'equation' });
+    totals.push({ readOnly: true, value: '0.0', expr, className: 'equation', margin: true });
   }
   grid.push(totals);
 };
@@ -40,8 +38,9 @@ const createRows = (grid) => {
 };
 
 const createHeader = (grid) => {
-  grid.push(HEADERS.map((header) => {
-    return { readOnly: true, value: header };
+  grid.push(HEADERS.map((header, dex) => {
+    const left = dex === 0;
+    return { readOnly: true, value: header, margin: true, left };
   }));
 };
 
@@ -58,8 +57,8 @@ const getKey = (r, c) => {
 
 const createRow = (r) => {
   const row = Array(HEADERS.length).fill().map((cell, c) => {
-    return { key: getKey(r, c), value: '', expr: '' };
+    const left = c === 0;
+    return { key: getKey(r, c), value: '', expr: '', margin: left, left };
   });
-  row[0] = _.assign(row[0], { readOnly: true });
   return row;
 };
