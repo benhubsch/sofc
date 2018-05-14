@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
 import { buildGrid, addRow } from './GridUtils.js';
 import classNames from 'classnames';
 
-export default class ProgrammingSheet extends React.Component {
+export default class ProgrammingSheet extends Component {
 
   constructor(props) {
     super(props);
