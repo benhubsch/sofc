@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import EmailBox from '../components/EmailBox.js';
+import GroupInfo from '../components/GroupInfo.js';
 
 const AppContainer = () => {
   return (
-    <EmailBox />
+    <GroupInfo />
   );
 };
 

@@ -2,6 +2,7 @@
   "name": "react-node-starter",
   "version": "1.0.0",
   "description": "an example for deploying a React + NodeJS app to Heroku",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "build": "webpack --config webpack.prod.config.js",
