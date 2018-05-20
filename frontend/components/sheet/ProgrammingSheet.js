@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
-import { buildGrid, addRow } from './GridUtils.js';
+import { buildGrid, addRow, removeRow } from './GridUtils.js';
 import classNames from 'classnames';
 import 'react-datasheet/lib/react-datasheet.css';
-import '../assets/stylesheets/datasheet.css';
+import '../../assets/stylesheets/datasheet.css';
 
 export default class ProgrammingSheet extends Component {
   constructor(props) {
@@ -85,8 +85,12 @@ export default class ProgrammingSheet extends Component {
   }
 
   updateTotals(grid, col) {
-    var totalCell = grid[grid.length - 1][col];
-    grid[grid.length - 1][col] = this.createUpdatedCell(totalCell, totalCell.expr, this.buildVars(grid));
+    const totalCell = grid[grid.length - 1][col];
+    let total = 0.0;
+    for (let row = 1; row < grid.length - 1; row++) {
+      total += this.getCellValue(grid[row][col]);
+    }
+    totalCell.value = total;
   }
 
   cellUpdate(grid, row, col, oldCell, expr) {
@@ -115,9 +119,9 @@ export default class ProgrammingSheet extends Component {
     if (this.isNumeric(cell.value) && i > 0 && j > 0) {
       var decimal = parseFloat(cell.value).toFixed(2).toString();
       if (decimal < 0) {
-        return decimal.slice(0, 1) + '$' + decimal.slice(1);
+        return `${decimal.slice(0, 1)}$${decimal.slice(1)}`;
       }
-      return '$' + decimal.toString();
+      return `$${decimal.toString()}`;
     }
     return cell.value;
   }
@@ -127,44 +131,46 @@ export default class ProgrammingSheet extends Component {
     if (isAdd) {
       grid = addRow(this.state.grid);
     } else {
-      grid = this.state.grid.map(row => [...row]);
-      if (grid.length > 3) {
-        grid.splice(grid.length - 2, 1);
-      }
+      grid = removeRow(this.state.grid);
+      this.updateTotals(grid, 1);
+      this.updateTotals(grid, 2);
+      this.updateTotals(grid, 3);
     }
     this.setState({ grid });
   }
 
+  cellRenderer(props) {
+    const margin = props.cell.margin ? 'margin' : null;
+    const left = props.cell.left ? 'left' : null;
+    return (
+      <td
+        className={classNames(props.className, margin, left)}
+        onMouseDown={props.onMouseDown}
+        onMouseOver={props.onMouseOver}
+        onDoubleClick={props.onDoubleClick} >
+        {props.children}
+      </td>
+    );
+  }
+
   render() {
     return (
-      <div>
-        <a href="#" onClick={() => this.handleClick(true)}>
-          Add Rows
-        </a>
-        <a href="#" onClick={() => this.handleClick(false)}>
-          Remove Rows
-        </a>
-        <DataSheet
-          data={this.state.grid}
-          valueRenderer={this.format}
-          dataRenderer={cell => cell.expr}
-          onCellsChanged={this.onCellsChanged}
-          cellRenderer={props => {
-            const margin = props.cell.margin ? 'margin' : null;
-            const left = props.cell.left ? 'left' : null;
-            return (
-            <td
-              className={classNames(props.className, margin, left)}
-              onMouseDown={props.onMouseDown}
-              onMouseOver={props.onMouseOver}
-              onDoubleClick={props.onDoubleClick}
-            >
-              {props.children}
-            </td>
-            );
-          }
-        }
-      />
+      <div className={'container'}>
+        <div className={'sheet-container'}>
+          <a href="#" onClick={() => this.handleClick(true)}>
+            Add Rows
+          </a>
+          <a href="#" onClick={() => this.handleClick(false)}>
+            Remove Rows
+          </a>
+          <DataSheet
+            data={this.state.grid}
+            valueRenderer={this.format}
+            dataRenderer={cell => cell.expr}
+            onCellsChanged={this.onCellsChanged}
+            cellRenderer={this.cellRenderer}
+          />
+        </div>
       </div>
     );
   }
