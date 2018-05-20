@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Event from '../components/event/Event.js';
+import ProgrammingSheet from '../components/ProgrammingSheet.js';
 import { Grid } from 'react-flexbox-grid';
 
 const AppContainer = () => {
   return (
     <Grid fluid>
-      <Event />
+      <div className={'container'}>
+        <div className={'sheet-container'}>
+          <ProgrammingSheet />
+        </div>
+      </div>
     </Grid>
   );
 };

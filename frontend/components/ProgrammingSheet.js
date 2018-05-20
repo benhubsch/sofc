@@ -4,9 +4,10 @@ import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
 import { buildGrid, addRow } from './GridUtils.js';
 import classNames from 'classnames';
+import 'react-datasheet/lib/react-datasheet.css';
+import '../assets/stylesheets/datasheet.css';
 
 export default class ProgrammingSheet extends Component {
-
   constructor(props) {
     super(props);
     this.onCellsChanged = this.onCellsChanged.bind(this);
@@ -167,5 +168,4 @@ export default class ProgrammingSheet extends Component {
       </div>
     );
   }
-
 }
