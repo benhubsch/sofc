@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { InputGroup } from '@blueprintjs/core';
 
-const PLACEHOLDER = 'Fund Code';
+const PLACEHOLDER = 'Attendees';
 
-export default class FundCode extends Component {
+export default class Attendees extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -21,12 +21,10 @@ export default class FundCode extends Component {
     const input = event.target.value;
     const last = input.charAt(input.length - 1);
     if (!this.isNumeric(last) && last !== '') {
-      console.log('setting state to', this.state.value);
-      console.log('last', last);
       this.setState({ value: this.state.value });
       return;
     }
-    this.setState({ value: input.substring(0, 7) });
+    this.setState({ value: input });
   }
 
   render() {

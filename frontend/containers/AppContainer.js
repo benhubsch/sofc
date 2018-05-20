@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Organization from '../components/organization/Organization.js';
+import Event from '../components/event/Event.js';
 import { Grid } from 'react-flexbox-grid';
 
 const AppContainer = () => {
   return (
     <Grid fluid>
-      <Organization />
+      <Event />
     </Grid>
   );
 };

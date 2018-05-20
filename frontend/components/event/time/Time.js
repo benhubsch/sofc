@@ -5,7 +5,7 @@ import { TimePicker } from '@blueprintjs/datetime';
 export default class StartTime extends Component {
   constructor(props) {
     super(props);
-    this.date = {
+    this.state = {
       time: null
     };
   }
