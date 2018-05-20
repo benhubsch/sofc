@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import GroupInfo from '../components/GroupInfo.js';
+import Organization from '../components/organization/Organization.js';
+import { Grid } from 'react-flexbox-grid';
 
 const AppContainer = () => {
   return (
-    <GroupInfo />
+    <Grid fluid>
+      <Organization />
+    </Grid>
   );
 };
 

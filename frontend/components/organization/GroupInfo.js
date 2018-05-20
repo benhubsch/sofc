@@ -9,10 +9,9 @@ const GROUPS = [{
   name: 'The Wild Ones',
   fundcode: 2222222
 }];
-const SEARCH = 'Search for your group...';
+const SEARCH = 'Organization Name';
 
 export default class GroupInfo extends Component {
-
   constructor(props) {
     super(props);
     this.handleItemSelect = this.handleItemSelect.bind(this);
@@ -25,7 +24,6 @@ export default class GroupInfo extends Component {
   }
 
   handleItemSelect(group) {
-    console.log('onItemSelect');
     this.setState({ group });
   }
 
@@ -36,25 +34,23 @@ export default class GroupInfo extends Component {
       return null;
     }
     const text = group.name;
-    console.log('text', text);
     return (
-        <MenuItem
-            active={ modifiers.active }
-            label={ group.fundcode.toString() }
-            key={ group.fundcode }
-            onClick={ handleClick }
-            // text={ text }
-            text={ this.highlightText(text, query) }
-        />
+      <MenuItem
+        active={ modifiers.active }
+        label={ group.fundcode.toString() }
+        key={ group.fundcode }
+        onClick={ handleClick }
+        text={ this.highlightText(text, query) }
+      />
     );
   }
 
   highlightText(text, query) {
     let lastIndex = 0;
     const words = query
-        .split(/\s+/)
-        .filter(word => word.length > 0)
-        .map(this.escapeRegExpChars);
+      .split(/\s+/)
+      .filter(word => word.length > 0)
+      .map(this.escapeRegExpChars);
     if (words.length === 0) {
       return [text];
     }
@@ -106,5 +102,4 @@ export default class GroupInfo extends Component {
       />
     );
   }
-
 }

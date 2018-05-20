@@ -7,7 +7,6 @@ const PLACEHOLDER = 'Type contact email(s).';
 const LEFT_ICON = 'envelope';
 
 export default class EmailBox extends Component {
-
   constructor(props) {
     super(props);
     this.handleTagAdd = this.handleTagAdd.bind(this);
@@ -48,8 +47,8 @@ export default class EmailBox extends Component {
         leftIcon={ LEFT_ICON }
         placeholder={ PLACEHOLDER }
         addOnBlur
+        fill
       />
     );
   }
-
 }
