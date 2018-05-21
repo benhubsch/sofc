@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import GroupInfo from './GroupInfo.js';
+import GroupName from './GroupName.js';
 import Contacts from './Contacts.js';
 import EmailBox from './EmailBox.js';
 import FundCode from './FundCode.js';
@@ -11,7 +11,7 @@ export default class Organization extends Component {
       <Fragment>
         <Row around="xs">
           <Col md={3}>
-            <GroupInfo />
+            <GroupName />
           </Col>
           <Col md={3}>
             <Contacts />

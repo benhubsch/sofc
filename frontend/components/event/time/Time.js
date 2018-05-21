@@ -15,7 +15,6 @@ export default class StartTime extends Component {
       <TimePicker
         useAmPm
         selectAllOnFocus
-        defaultValue={new Date()}
       />
     );
   }

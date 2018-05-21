@@ -11,7 +11,7 @@ const GROUPS = [{
 }];
 const SEARCH = 'Organization Name';
 
-export default class GroupInfo extends Component {
+export default class GroupName extends Component {
   constructor(props) {
     super(props);
     this.handleItemSelect = this.handleItemSelect.bind(this);
