@@ -4,7 +4,7 @@ import { DateInput } from '@blueprintjs/datetime';
 
 const MONTH_DAY_YEAR = 'MM/DD/YYYY';
 
-export default class EventDateTime extends Component {
+export default class EventDate extends Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -22,8 +22,10 @@ export default class EventDateTime extends Component {
       <DateInput
         formatDate={date => moment(date).format(MONTH_DAY_YEAR)}
         parseDate={input => moment(input, MONTH_DAY_YEAR).toDate()}
-        defaultValue={new Date()}
+        placeholder={'Event Date'}
         onChange={this.handleDateChange}
+        minDate={new Date()}
+        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
       />
     );
   }
