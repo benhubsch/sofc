@@ -9,7 +9,7 @@ export default class FundCode extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.isNumeric = this.isNumeric.bind(this);
     this.state = {
-      value: null
+      value: ''
     };
   }
 

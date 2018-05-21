@@ -4,8 +4,6 @@ import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
 import { buildGrid, addRow, removeRow } from './GridUtils.js';
 import classNames from 'classnames';
-import 'react-datasheet/lib/react-datasheet.css';
-import '../../assets/stylesheets/datasheet.css';
 
 export default class ProgrammingSheet extends Component {
   constructor(props) {

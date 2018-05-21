@@ -98,3 +98,25 @@ pre {
   padding: 10px 30px;
   border-left: 2px solid white;
 }
+
+/*
+*
+* ADDED BY BEN
+*
+*/
+
+.margin {
+  background-color: whitesmoke !important;
+  text-align: center !important;
+}
+
+.left {
+  width: 300px !important;
+  vertical-align: middle !important;
+  word-wrap: break-word;
+}
+
+input.data-editor {
+  -webkit-box-sizing: unset;
+  box-sizing: unset;
+}

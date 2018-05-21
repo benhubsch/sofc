@@ -9,7 +9,7 @@ export default class Attendees extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.isNumeric = this.isNumeric.bind(this);
     this.state = {
-      value: null
+      value: ''
     };
   }
 
