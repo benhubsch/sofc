@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProgrammingSheet from '../components/programming/ProgrammingSheet.js';
-import Organization from '../components/organization/Organization.js';
+import Organization from './OrganizationContainer.js';
 import Event from '../components/event/Event.js';
 import { Grid } from 'react-flexbox-grid';
 

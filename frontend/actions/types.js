@@ -1,1 +1,3 @@
-/* Action types */
+// ORGANIZATION ACTION TYPES
+export const ADD_CONTACTS = 'ADD_CONTACTS';
+export const REMOVE_CONTACTS = 'REMOVE_CONTACTS';

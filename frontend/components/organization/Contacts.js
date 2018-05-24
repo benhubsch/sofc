@@ -1,39 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addContacts, removeContacts } from '../../actions';
 import { TagInput } from '@blueprintjs/core';
 
 const PLACEHOLDER = 'Contact Person(s)';
 const LEFT_ICON = 'people';
 
-export default class Contacts extends Component {
-  constructor(props) {
-    super(props);
-    this.handleTagAdd = this.handleTagAdd.bind(this);
-    this.handleTagRemove = this.handleTagRemove.bind(this);
-    this.state = {
-      contacts: []
-    };
-  }
+const Contacts = ({ contacts, handleAdd, handleRemove }) => {
+  return (
+    <TagInput
+      onAdd={ (values) => {
+        return handleAdd(values);
+      } }
+      onRemove={ (value, dex) => handleRemove(value, dex) }
+      values={ contacts }
+      leftIcon={ LEFT_ICON }
+      placeholder={ PLACEHOLDER }
+      addOnBlur
+      fill
+    />
+  );
+};
 
-  handleTagAdd(values) {
-    this.setState({ contacts: this.state.contacts.concat(values) });
-  }
+Contacts.propTypes = {
+  contacts: PropTypes.array,
+  handleAdd: PropTypes.func,
+  handleRemove: PropTypes.func
+};
 
-  handleTagRemove(value, dex) {
-    this.state.contacts.splice(dex, 1);
-    this.setState({ contacts: [...this.state.contacts] });
-  }
+const mapStateToProps = (state) => {
+  return {
+    contacts: state.organizationReducer.contacts
+  };
+};
 
-  render() {
-    return (
-      <TagInput
-        onAdd={ this.handleTagAdd }
-        onRemove={ this.handleTagRemove }
-        values={ this.state.contacts }
-        leftIcon={ LEFT_ICON }
-        placeholder={ PLACEHOLDER }
-        addOnBlur
-        fill
-      />
-    );
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleAdd: (values) => dispatch(addContacts(values)),
+    handleRemove: (value, dex) => dispatch(removeContacts(value, dex))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Contacts);
