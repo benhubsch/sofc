@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addEmails, removeEmails } from '../../actions';
 import _ from 'lodash';
 import IsEmail from 'isemail';
 import { TagInput } from '@blueprintjs/core';
@@ -6,49 +9,50 @@ import { TagInput } from '@blueprintjs/core';
 const PLACEHOLDER = 'Type contact email(s).';
 const LEFT_ICON = 'envelope';
 
-export default class EmailBox extends Component {
-  constructor(props) {
-    super(props);
-    this.handleTagAdd = this.handleTagAdd.bind(this);
-    this.handleTagRemove = this.handleTagRemove.bind(this);
-    this.state = {
-      emails: []
-    };
-  }
+const validateEmails = values => {
+  var emails = [];
+  _(values).each(input => {
+    if (IsEmail.validate(input)) {
+      emails.push(input);
+    }
+  });
+  return emails;
+};
 
-  handleTagAdd(values) {
-    var emails = this.validateEmails(values);
-    this.setState({ emails: this.state.emails.concat(emails) });
-  }
+const EmailBox = ({ emails, handleAdd, handleRemove }) => {
+  return (
+    <TagInput
+      onAdd={ handleAdd }
+      onRemove={ handleRemove }
+      values={ emails }
+      leftIcon={ LEFT_ICON }
+      placeholder={ PLACEHOLDER }
+      addOnBlur
+      fill
+    />
+  );
+};
 
-  validateEmails(values) {
-    var emails = [];
-    _(values).each((input) => {
-      if (IsEmail.validate(input)) {
-        emails.push(input);
-      } else {
-        console.log('NOT AN EMAIL', input);
-      }
-    });
-    return emails;
-  }
+EmailBox.propTypes = {
+  emails: PropTypes.array,
+  handleAdd: PropTypes.func,
+  handleRemove: PropTypes.func
+};
 
-  handleTagRemove(value, dex) {
-    this.state.emails.splice(dex, 1);
-    this.setState({ emails: this.state.emails.slice() });
-  }
+const mapStateToProps = state => {
+  return {
+    emails: state.organizationReducer.emails
+  };
+};
 
-  render() {
-    return (
-      <TagInput
-        onAdd={ this.handleTagAdd }
-        onRemove={ this.handleTagRemove }
-        values={ this.state.emails }
-        leftIcon={ LEFT_ICON }
-        placeholder={ PLACEHOLDER }
-        addOnBlur
-        fill
-      />
-    );
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    handleAdd: values => dispatch(addEmails(validateEmails(values))),
+    handleRemove: (value, dex) => dispatch(removeEmails(value, dex))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmailBox);

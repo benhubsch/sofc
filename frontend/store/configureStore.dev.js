@@ -7,7 +7,7 @@ export function configureStore(initialState) {
     rootReducer,
     initialState,
     compose(
-      DevTools.instrument()
+      // DevTools.instrument()
     )
   );
 }

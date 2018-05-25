@@ -10,3 +10,24 @@ export const removeContacts = (value, dex) => ({
   value,
   dex
 });
+
+export const addEmails = emails => ({
+  type: types.ADD_EMAILS,
+  emails
+});
+
+export const removeEmails = (value, dex) => ({
+  type: types.REMOVE_EMAILS,
+  value,
+  dex
+});
+
+export const selectGroup = group => ({
+  type: types.SELECT_GROUP,
+  group
+});
+
+export const inputChange = input => ({
+  type: types.FUNDCODE_INPUT_CHANGE,
+  input
+});

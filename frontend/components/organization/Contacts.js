@@ -10,10 +10,8 @@ const LEFT_ICON = 'people';
 const Contacts = ({ contacts, handleAdd, handleRemove }) => {
   return (
     <TagInput
-      onAdd={ (values) => {
-        return handleAdd(values);
-      } }
-      onRemove={ (value, dex) => handleRemove(value, dex) }
+      onAdd={ handleAdd }
+      onRemove={ handleRemove }
       values={ contacts }
       leftIcon={ LEFT_ICON }
       placeholder={ PLACEHOLDER }
@@ -29,15 +27,15 @@ Contacts.propTypes = {
   handleRemove: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     contacts: state.organizationReducer.contacts
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    handleAdd: (values) => dispatch(addContacts(values)),
+    handleAdd: values => dispatch(addContacts(values)),
     handleRemove: (value, dex) => dispatch(removeContacts(value, dex))
   };
 };

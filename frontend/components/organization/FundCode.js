@@ -1,42 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { inputChange } from '../../actions';
 import { InputGroup } from '@blueprintjs/core';
 
 const PLACEHOLDER = 'Fund Code';
 
-export default class FundCode extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.isNumeric = this.isNumeric.bind(this);
-    this.state = {
-      value: ''
-    };
-  }
+const FundCode = ({ fundCode, handleChange }) => {
+  return (
+    <InputGroup
+      className="pt-fill"
+      onChange={ handleChange }
+      value={ fundCode }
+      placeholder={ PLACEHOLDER }
+    />
+  );
+};
 
-  isNumeric(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
+FundCode.propTypes = {
+  fundCode: PropTypes.string,
+  handleChange: PropTypes.func
+};
 
-  handleChange(event) {
-    const input = event.target.value;
-    const last = input.charAt(input.length - 1);
-    if (!this.isNumeric(last) && last !== '') {
-      console.log('setting state to', this.state.value);
-      console.log('last', last);
-      this.setState({ value: this.state.value });
-      return;
-    }
-    this.setState({ value: input.substring(0, 7) });
-  }
+const mapStateToProps = state => {
+  return {
+    fundCode: state.organizationReducer.fundCode
+  };
+};
 
-  render() {
-    return (
-      <InputGroup
-        className="pt-fill"
-        onChange={this.handleChange}
-        value={this.state.value}
-        placeholder={PLACEHOLDER}
-      />
-    );
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    handleChange: event => dispatch(inputChange(event.target.value))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FundCode);
