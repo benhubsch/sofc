@@ -6,7 +6,7 @@ import {
   ADD_EMAILS,
   REMOVE_EMAILS,
   SELECT_GROUP,
-  FUNDCODE_INPUT_CHANGE
+  FUNDCODE_CHANGE
 } from '../actions/types';
 
 const GROUPS = {
@@ -54,7 +54,7 @@ function organizationReducer(state = initialState, action) {
         group: action.group,
         fundCode: GROUPS[action.group.name].toString()
       };
-    case FUNDCODE_INPUT_CHANGE:
+    case FUNDCODE_CHANGE:
       const fundCode = action.fundCode;
       const last = fundCode.charAt(fundCode.length - 1);
       if (!isNumeric(last) && last !== '') {

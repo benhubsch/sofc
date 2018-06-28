@@ -28,7 +28,7 @@ export const selectGroup = group => ({
 });
 
 export const fundCodeChange = fundCode => ({
-  type: types.FUNDCODE_INPUT_CHANGE,
+  type: types.FUNDCODE_CHANGE,
   fundCode
 });
 
