@@ -1,18 +1,22 @@
-import { EVENT_NAME_CHANGE, EVENT_DATE_CHANGE } from '../actions/types';
+import { EVENT_NAME_CHANGE, EVENT_DATE_CHANGE, START_TIME_CHANGE, END_TIME_CHANGE } from '../actions/types';
 
 const initialState = {
   name: '',
-  date: new Date()
+  date: null,
+  startTime: null,
+  endTime: null
 };
 
 function eventReducer(state = initialState, action) {
   switch (action.type) {
     case EVENT_NAME_CHANGE:
-      console.log('ACTION', action.name);
       return { ...state, name: action.name };
     case EVENT_DATE_CHANGE:
-      console.log(action.date);
       return { ...state, date: action.date };
+    case START_TIME_CHANGE:
+      return { ...state, date: action.startTime };
+    case END_TIME_CHANGE:
+      return { ...state, date: action.endTime };
     default:
       return state;
   }

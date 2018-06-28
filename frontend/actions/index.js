@@ -41,3 +41,13 @@ export const eventDateChange = date => ({
   type: types.EVENT_DATE_CHANGE,
   date
 });
+
+export const startTimeChange = startTime => ({
+  type: types.START_TIME_CHANGE,
+  startTime
+});
+
+export const endTimeChange = endTime => ({
+  type: types.END_TIME_CHANGE,
+  endTime
+});

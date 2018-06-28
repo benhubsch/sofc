@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { TimePicker } from '@blueprintjs/datetime';
 
+const Time = ({ handleTimeChange }) => (
+  <TimePicker
+    useAmPm
+    selectAllOnFocus
+    onChange={handleTimeChange}
+  />
+);
 
-export default class StartTime extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: null
-    };
-  }
+Time.propTypes = {
+  handleTimeChange: PropTypes.func
+};
 
-  render() {
-    return (
-      <TimePicker
-        useAmPm
-        selectAllOnFocus
-      />
-    );
-  }
-}
+export default Time;
