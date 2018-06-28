@@ -55,12 +55,12 @@ function organizationReducer(state = initialState, action) {
         fundCode: GROUPS[action.group.name].toString()
       };
     case FUNDCODE_INPUT_CHANGE:
-      const input = action.input;
-      const last = input.charAt(input.length - 1);
+      const fundCode = action.fundCode;
+      const last = fundCode.charAt(fundCode.length - 1);
       if (!isNumeric(last) && last !== '') {
         return state;
       }
-      return { ...state, fundCode: input.substring(0, 7) };
+      return { ...state, fundCode: fundCode.substring(0, 7) };
     default:
       return state;
   }

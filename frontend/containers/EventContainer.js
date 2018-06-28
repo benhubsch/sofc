@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  eventNameChange
+  eventNameChange,
+  eventDateChange
 } from '../actions';
 import EventName from '../components/event/EventName.js';
 import Attendees from '../components/event/Attendees.js';
@@ -11,7 +12,7 @@ import Time from '../components/event/time/Time.js';
 import { Row, Col } from 'react-flexbox-grid';
 import { InputGroup } from '@blueprintjs/core';
 
-const EventContainer = ({ handleNameChange }) => (
+const EventContainer = ({ name, handleNameChange, handleDateChange }) => (
   <Fragment>
     <Row around="xs">
       <Col md={3}>
@@ -20,7 +21,7 @@ const EventContainer = ({ handleNameChange }) => (
     </Row>
     <Row around="xs">
       <Col md={3}>
-        <EventDate />
+        <EventDate handleDateChange={handleDateChange} />
       </Col>
       <Col md={3}>
         <Time />
@@ -52,7 +53,9 @@ const EventContainer = ({ handleNameChange }) => (
 );
 
 EventContainer.propTypes = {
-  handleNameChange: PropTypes.func
+  name: PropTypes.string,
+  handleNameChange: PropTypes.func,
+  handleDateChange: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -63,7 +66,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleNameChange: input => dispatch(eventNameChange(input))
+    handleNameChange: event => dispatch(eventNameChange(event.target.value)),
+    handleDateChange: date => dispatch(eventDateChange(date))
   };
 };
 

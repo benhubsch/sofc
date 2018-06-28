@@ -4,14 +4,17 @@ import { InputGroup } from '@blueprintjs/core';
 
 const PLACEHOLDER = 'Event Name';
 
-const EventName = ({ name, handleNameChange }) => (
-  <InputGroup
-    className="pt-fill"
-    onChange={handleNameChange}
-    value={name}
-    placeholder={PLACEHOLDER}
-  />
-);
+const EventName = ({ name, handleNameChange }) => {
+  console.log('NAME', name);
+  return (
+    <InputGroup
+      className="pt-fill"
+      onChange={handleNameChange}
+      value={name}
+      placeholder={PLACEHOLDER}
+    />
+  );
+};
 
 EventName.propTypes = {
   name: PropTypes.string,

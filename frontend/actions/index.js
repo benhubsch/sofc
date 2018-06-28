@@ -27,12 +27,17 @@ export const selectGroup = group => ({
   group
 });
 
-export const fundCodeChange = input => ({
+export const fundCodeChange = fundCode => ({
   type: types.FUNDCODE_INPUT_CHANGE,
-  input
+  fundCode
 });
 
-export const eventNameChange = input => ({
+export const eventNameChange = name => ({
   type: types.EVENT_NAME_CHANGE,
-  input
+  name
+});
+
+export const eventDateChange = date => ({
+  type: types.EVENT_DATE_CHANGE,
+  date
 });
