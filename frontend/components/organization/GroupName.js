@@ -68,19 +68,17 @@ const filterItem = (query, group) => {
   return groupLower.indexOf(query.toLowerCase()) >= 0;
 };
 
-const GroupName = ({ handleItemSelect }) => {
-  return (
-    <Suggest
-      items={ GROUPS }
-      inputProps={{ placeholder: SEARCH }}
-      itemRenderer={ renderItem }
-      itemPredicate={ filterItem }
-      onItemSelect={ handleItemSelect }
-      inputValueRenderer={ renderInputValue }
-      noResults={ <MenuItem disabled text={ NO_RESULTS } /> }
-    />
-  );
-};
+const GroupName = ({ handleItemSelect }) => (
+  <Suggest
+    items={ GROUPS }
+    inputProps={{ placeholder: SEARCH }}
+    itemRenderer={ renderItem }
+    itemPredicate={ filterItem }
+    onItemSelect={ handleItemSelect }
+    inputValueRenderer={ renderInputValue }
+    noResults={ <MenuItem disabled text={ NO_RESULTS } /> }
+  />
+);
 
 GroupName.propTypes = {
   handleItemSelect: PropTypes.func

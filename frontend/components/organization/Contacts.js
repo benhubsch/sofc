@@ -5,19 +5,17 @@ import { TagInput } from '@blueprintjs/core';
 const PLACEHOLDER = 'Contact Person(s)';
 const LEFT_ICON = 'people';
 
-const Contacts = ({ contacts, handleContactsAdd, handleContactsRemove }) => {
-  return (
-    <TagInput
-      onAdd={ handleContactsAdd }
-      onRemove={ handleContactsRemove }
-      values={ contacts }
-      leftIcon={ LEFT_ICON }
-      placeholder={ PLACEHOLDER }
-      addOnBlur
-      fill
-    />
-  );
-};
+const Contacts = ({ contacts, handleContactsAdd, handleContactsRemove }) => (
+  <TagInput
+    onAdd={ handleContactsAdd }
+    onRemove={ handleContactsRemove }
+    values={ contacts }
+    leftIcon={ LEFT_ICON }
+    placeholder={ PLACEHOLDER }
+    addOnBlur
+    fill
+  />
+);
 
 Contacts.propTypes = {
   contacts: PropTypes.array,
