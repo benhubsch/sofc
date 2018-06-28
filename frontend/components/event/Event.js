@@ -28,10 +28,7 @@ export default class Event extends Component {
         </Row>
         <Row around="xs">
           <Col md={3}>
-            <InputGroup
-              className="pt-fill"
-              placeholder={'Event Location'}
-            />
+            <InputGroup className="pt-fill" placeholder={'Event Location'} />
           </Col>
           <Col md={3}>
             <Attendees />
@@ -43,7 +40,9 @@ export default class Event extends Component {
         <Row around="xs">
           <InputGroup
             className="pt-fill"
-            placeholder={'Target audience (undergraduate, graduate, Durham community, etc.)'}
+            placeholder={
+              'Target audience (undergraduate, graduate, Durham community, etc.)'
+            }
           />
         </Row>
       </Fragment>

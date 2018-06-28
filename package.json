@@ -9,7 +9,6 @@
     "dev": "concurrently -k \"npm run frontend\" \"npm run backend\"",
     "frontend": "webpack-dev-server --open",
     "backend": "nodemon server.js",
-    "start": "npm run build && NODE_ENV=production nodemon server.js",
     "test": "mocha --compilers js:babel-core/register ./test/**/*.js --require ignore-styles"
   },
   "author": "",

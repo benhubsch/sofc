@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { selectGroup } from '../../actions';
 import { MenuItem } from '@blueprintjs/core';
 import { Suggest } from '@blueprintjs/select';
 
@@ -13,6 +11,7 @@ const GROUPS = [{
   fundcode: 2222222
 }];
 const SEARCH = 'Organization Name';
+const NO_RESULTS = 'No results.';
 
 const renderItem = (group, itemProps) => {
   const { handleClick, modifiers, query } = itemProps;
@@ -78,7 +77,7 @@ const GroupName = ({ handleItemSelect }) => {
       itemPredicate={ filterItem }
       onItemSelect={ handleItemSelect }
       inputValueRenderer={ renderInputValue }
-      noResults={ <MenuItem disabled text="No results." /> }
+      noResults={ <MenuItem disabled text={ NO_RESULTS } /> }
     />
   );
 };
@@ -87,17 +86,4 @@ GroupName.propTypes = {
   handleItemSelect: PropTypes.func
 };
 
-const mapStateToProps = () => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handleItemSelect: group => dispatch(selectGroup(group))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroupName);
+export default GroupName;
