@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ProgrammingSheet from '../components/programming/ProgrammingSheet.js';
 import OrganizationContainer from './OrganizationContainer';
-import Event from '../components/event/Event.js';
+import EventContainer from './EventContainer';
 import { Grid } from 'react-flexbox-grid';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
@@ -18,7 +18,7 @@ const AppContainer = () => {
   return (
     <Grid fluid>
       <OrganizationContainer />
-      <Event />
+      <EventContainer />
       <ProgrammingSheet />
     </Grid>
   );
