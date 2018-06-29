@@ -7,20 +7,20 @@ const LEFT_ICON = 'people';
 
 const Contacts = ({ contacts, handleContactsAdd, handleContactsRemove }) => (
   <TagInput
-    onAdd={ handleContactsAdd }
-    onRemove={ handleContactsRemove }
-    values={ contacts }
-    leftIcon={ LEFT_ICON }
-    placeholder={ PLACEHOLDER }
+    onAdd={handleContactsAdd}
+    onRemove={handleContactsRemove}
+    values={contacts}
+    leftIcon={LEFT_ICON}
+    placeholder={PLACEHOLDER}
     addOnBlur
     fill
   />
 );
 
 Contacts.propTypes = {
-  contacts: PropTypes.array,
-  handleContactsAdd: PropTypes.func,
-  handleContactsRemove: PropTypes.func
+  contacts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleContactsAdd: PropTypes.func.isRequired,
+  handleContactsRemove: PropTypes.func.isRequired
 };
 
 export default Contacts;

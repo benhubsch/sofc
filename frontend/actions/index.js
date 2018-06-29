@@ -51,3 +51,13 @@ export const endTimeChange = endTime => ({
   type: types.END_TIME_CHANGE,
   endTime
 });
+
+export const undergradChange = undergrads => ({
+  type: types.UNDERGRAD_CHANGE,
+  undergrads
+});
+
+export const graduateChange = graduates => ({
+  type: types.GRADUATE_CHANGE,
+  graduates
+});

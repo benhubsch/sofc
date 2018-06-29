@@ -21,10 +21,11 @@ const initialState = {
   group: null
 };
 
-const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n);
+export const isNumeric = n =>
+  !Number.isNaN(parseFloat(n)) && Number.isFinite(n);
 
 const validateEmails = values => {
-  var emails = [];
+  const emails = [];
   _(values).each(input => {
     if (IsEmail.validate(input)) {
       emails.push(input);
@@ -37,30 +38,28 @@ function organizationReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CONTACTS:
       return { ...state, contacts: [...state.contacts, action.contacts] };
-    case REMOVE_CONTACTS:
+    case REMOVE_CONTACTS: {
       const contacts = [...state.contacts];
       contacts.splice(action.dex, 1);
       return { ...state, contacts };
-    case ADD_EMAILS:
+    }
+    case ADD_EMAILS: {
       const validated = validateEmails(action.emails);
       return { ...state, emails: [...state.emails, validated] };
-    case REMOVE_EMAILS:
+    }
+    case REMOVE_EMAILS: {
       const emails = [...state.emails];
       emails.splice(action.dex, 1);
       return { ...state, emails };
+    }
     case SELECT_GROUP:
       return {
         ...state,
         group: action.group,
-        fundCode: GROUPS[action.group.name].toString()
+        fundCode: GROUPS[action.group.name]
       };
     case FUNDCODE_CHANGE:
-      const fundCode = action.fundCode;
-      const last = fundCode.charAt(fundCode.length - 1);
-      if (!isNumeric(last) && last !== '') {
-        return state;
-      }
-      return { ...state, fundCode: fundCode.substring(0, 7) };
+      return { ...state, fundCode: action.fundCode };
     default:
       return state;
   }

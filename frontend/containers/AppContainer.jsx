@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProgrammingSheet from '../components/programming/ProgrammingSheet.js';
+import { Grid } from 'react-flexbox-grid';
+import ProgrammingSheet from '../components/programming/ProgrammingSheet';
 import OrganizationContainer from './OrganizationContainer';
 import EventContainer from './EventContainer';
-import { Grid } from 'react-flexbox-grid';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/select/lib/css/blueprint-select.css';
@@ -14,28 +14,19 @@ import 'normalize.css/normalize.css';
 import 'react-datasheet/lib/react-datasheet.css';
 import '../assets/stylesheets/programming.css';
 
-const AppContainer = () => {
-  return (
-    <Grid fluid>
-      <OrganizationContainer />
-      <EventContainer />
-      <ProgrammingSheet />
-    </Grid>
-  );
-};
+const AppContainer = () => (
+  <Grid fluid>
+    <OrganizationContainer />
+    <EventContainer />
+    <ProgrammingSheet />
+  </Grid>
+);
 
-AppContainer.propTypes = {
-};
+AppContainer.propTypes = {};
 
-const mapStateToProps = (state) => {
-  return {
-  };
-};
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (/* dispatch */) => {
-  return {
-  };
-};
+const mapDispatchToProps = (/* dispatch */) => ({});
 
 export default connect(
   mapStateToProps,

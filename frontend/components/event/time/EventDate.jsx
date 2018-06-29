@@ -9,7 +9,7 @@ const EventDate = ({ handleDateChange }) => (
   <DateInput
     formatDate={date => moment(date).format(MONTH_DAY_YEAR)}
     parseDate={input => moment(input, MONTH_DAY_YEAR).toDate()}
-    placeholder={'Event Date'}
+    placeholder="Event Date"
     onChange={handleDateChange}
     minDate={new Date()}
     maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
@@ -17,7 +17,7 @@ const EventDate = ({ handleDateChange }) => (
 );
 
 EventDate.propTypes = {
-  handleDateChange: PropTypes.func
+  handleDateChange: PropTypes.func.isRequired
 };
 
 export default EventDate;

@@ -1,13 +1,7 @@
 import { createStore, compose } from 'redux';
-import rootReducer from '../reducers/combiner';
+import rootReducer from '../reducers/rootReducer';
 import DevTools from '../containers/DevTools';
 
-export function configureStore(initialState) {
-  return createStore(
-    rootReducer,
-    initialState,
-    compose(
-      // DevTools.instrument()
-    )
-  );
+export default function configureStore(initialState) {
+  return createStore(rootReducer, initialState, compose(DevTools.instrument()));
 }

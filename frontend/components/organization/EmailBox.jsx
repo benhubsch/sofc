@@ -18,9 +18,9 @@ const EmailBox = ({ emails, handleEmailsAdd, handleEmailsRemove }) => (
 );
 
 EmailBox.propTypes = {
-  emails: PropTypes.array,
-  handleEmailsAdd: PropTypes.func,
-  handleEmailsRemove: PropTypes.func
+  emails: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleEmailsAdd: PropTypes.func.isRequired,
+  handleEmailsRemove: PropTypes.func.isRequired
 };
 
 export default EmailBox;

@@ -9,7 +9,7 @@ body {
 }
 
 .error.cell {
-  background: rgba(255,0,0,0.14);
+  background: rgba(255, 0, 0, 0.14);
   font-size: 0.8em;
   color: red;
 }
@@ -35,7 +35,8 @@ body {
   width: 1rem;
 }
 
-tbody .row-handle.cell, thead .cell:not(.row-handle) {
+tbody .row-handle.cell,
+thead .cell:not(.row-handle) {
   cursor: move;
 }
 
@@ -43,8 +44,9 @@ tbody .row-handle.cell, thead .cell:not(.row-handle) {
   background: white;
 }
 
-.data-grid-container table.data-grid .drop-target,  .data-grid-container table.data-grid thead .cell.read-only.drop-target {
-  background: #6F86FC;
+.data-grid-container table.data-grid .drop-target,
+.data-grid-container table.data-grid thead .cell.read-only.drop-target {
+  background: #6f86fc;
   transition: none;
   color: white;
 }
@@ -71,7 +73,7 @@ table.data-grid {
   display: block;
   padding: 5px;
 
-  box-shadow: 0px 0px 6px #CCC;
+  box-shadow: 0px 0px 6px #ccc;
   margin: auto;
   width: 700px;
   margin-top: 20px;
@@ -81,14 +83,15 @@ table.data-grid {
 .sheet-container:hover {
   transition: box-shadow 0.5s ease-in;
 
-  box-shadow: 0px 0px 1px #CCC;
+  box-shadow: 0px 0px 1px #ccc;
 }
 
-.sheet-container table.data-grid tr td.cell:not(.selected){
+.sheet-container table.data-grid tr td.cell:not(.selected) {
   border: 1px solid #ececec;
 }
 
-.sheet-container table.data-grid tr td.cell, .sheet-container table.data-grid tr th.cell {
+.sheet-container table.data-grid tr td.cell,
+.sheet-container table.data-grid tr th.cell {
   font-size: 12px;
 }
 

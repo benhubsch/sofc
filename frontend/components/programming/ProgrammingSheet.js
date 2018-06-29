@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import mathjs from 'mathjs';
 import DataSheet from 'react-datasheet';
-import { buildGrid, addRow, removeRow } from './GridUtils.js';
 import classNames from 'classnames';
+import { buildGrid, addRow, removeRow } from './GridUtils';
 
 export default class ProgrammingSheet extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class ProgrammingSheet extends Component {
     }
 
     try {
-      var value = mathjs.eval(evalString, vars);
+      let value = mathjs.eval(evalString, vars);
       if (typeof value === 'undefined') {
         value = '';
       }
@@ -40,17 +40,21 @@ export default class ProgrammingSheet extends Component {
   }
 
   buildVars(grid) {
-    var vars = {};
-    _(grid).flatten().filter(cell => 'key' in cell).each(cell => {
-      vars[cell.key] = this.getCellValue(cell);
-    });
+    const vars = {};
+    _(grid)
+      .flatten()
+      .filter(cell => 'key' in cell)
+      .each(cell => {
+        vars[cell.key] = this.getCellValue(cell);
+      });
     return vars;
   }
 
   getCellValue(cell) {
     if (!cell.value) {
       return 0.0;
-    } else if (this.isNumeric(cell.value)) {
+    }
+    if (this.isNumeric(cell.value)) {
       return parseFloat(cell.value);
     }
     return cell.value;
@@ -61,8 +65,8 @@ export default class ProgrammingSheet extends Component {
   }
 
   updateReferences(grid, updatedCell) {
-    for (var r = 0; r < grid.length - 1; r++) {
-      for (var c = 0; c < grid[r].length; c++) {
+    for (let r = 0; r < grid.length - 1; r++) {
+      for (let c = 0; c < grid[r].length; c++) {
         const cell = grid[r][c];
         if (this.isReference(updatedCell, cell)) {
           grid[r][c] = this.cellUpdate(grid, cell, cell.expr);
@@ -72,10 +76,12 @@ export default class ProgrammingSheet extends Component {
   }
 
   isReference(updatedCell, cell) {
-    return 'key' in cell &&
+    return (
+      'key' in cell &&
       this.isEquation(cell.expr) &&
       cell.expr.indexOf(updatedCell.key) > -1 &&
-      cell.key !== updatedCell.key;
+      cell.key !== updatedCell.key
+    );
   }
 
   isEquation(expr) {
@@ -115,7 +121,9 @@ export default class ProgrammingSheet extends Component {
 
   format(cell, i, j) {
     if (this.isNumeric(cell.value) && i > 0 && j > 0) {
-      var decimal = parseFloat(cell.value).toFixed(2).toString();
+      const decimal = parseFloat(cell.value)
+        .toFixed(2)
+        .toString();
       if (decimal < 0) {
         return `${decimal.slice(0, 1)}$${decimal.slice(1)}`;
       }
@@ -145,7 +153,8 @@ export default class ProgrammingSheet extends Component {
         className={classNames(props.className, margin, left)}
         onMouseDown={props.onMouseDown}
         onMouseOver={props.onMouseOver}
-        onDoubleClick={props.onDoubleClick} >
+        onDoubleClick={props.onDoubleClick}
+      >
         {props.children}
       </td>
     );
@@ -153,8 +162,8 @@ export default class ProgrammingSheet extends Component {
 
   render() {
     return (
-      <div className={'container'}>
-        <div className={'sheet-container'}>
+      <div className="container">
+        <div className="sheet-container">
           <a href="#" onClick={() => this.handleClick(true)}>
             Add Rows
           </a>

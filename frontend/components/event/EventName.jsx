@@ -14,8 +14,8 @@ const EventName = ({ name, handleNameChange }) => (
 );
 
 EventName.propTypes = {
-  name: PropTypes.string,
-  handleNameChange: PropTypes.func
+  name: PropTypes.string.isRequired,
+  handleNameChange: PropTypes.func.isRequired
 };
 
 export default EventName;

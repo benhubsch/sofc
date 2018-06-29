@@ -2,18 +2,17 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: [
-    './frontend/index'
-  ],
+  entry: ['./frontend/index'],
   module: {
     rules: [
       { test: /\.js?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.s?css$/, loader: 'style-loader!css-loader!sass-loader' },
       { test: /\.(eot|woff|woff2|svg|ttf)([?]?.*)$/, loader: 'file-loader' }
     ]
   },
   resolve: {
-    extensions: ['.js', '.scss']
+    extensions: ['.js', '.scss', '.jsx']
   },
   output: {
     path: path.join(__dirname, '/public'),
