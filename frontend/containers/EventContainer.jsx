@@ -9,7 +9,9 @@ import {
   startTimeChange,
   endTimeChange,
   undergradChange,
-  graduateChange
+  graduateChange,
+  locationChange,
+  audienceChange
 } from '../actions';
 import EventName from '../components/event/EventName';
 import Attendees from '../components/event/Attendees';
@@ -25,7 +27,9 @@ const EventContainer = ({
   handleStartTimeChange,
   handleEndTimeChange,
   handleUndergradChange,
-  handleGraduateChange
+  handleGraduateChange,
+  handleLocationChange,
+  handleAudienceChange
 }) => (
   <Fragment>
     <Row around="xs">
@@ -46,7 +50,11 @@ const EventContainer = ({
     </Row>
     <Row around="xs">
       <Col md={3}>
-        <InputGroup className="pt-fill" placeholder="Event Location" />
+        <InputGroup
+          className="pt-fill"
+          placeholder="Event Location"
+          onChange={handleLocationChange}
+        />
       </Col>
       <Col md={3}>
         <Attendees
@@ -65,6 +73,7 @@ const EventContainer = ({
       <InputGroup
         className="pt-fill"
         placeholder="Target audience (undergraduate, graduate, Durham community, etc.)"
+        onChange={handleAudienceChange}
       />
     </Row>
   </Fragment>
@@ -81,7 +90,9 @@ EventContainer.propTypes = {
   handleStartTimeChange: PropTypes.func.isRequired,
   handleEndTimeChange: PropTypes.func.isRequired,
   handleUndergradChange: PropTypes.func.isRequired,
-  handleGraduateChange: PropTypes.func.isRequired
+  handleGraduateChange: PropTypes.func.isRequired,
+  handleLocationChange: PropTypes.func.isRequired,
+  handleAudienceChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -96,7 +107,9 @@ const mapDispatchToProps = dispatch => ({
   handleStartTimeChange: startTime => dispatch(startTimeChange(startTime)),
   handleEndTimeChange: endTime => dispatch(endTimeChange(endTime)),
   handleUndergradChange: undergrads => dispatch(undergradChange(undergrads)),
-  handleGraduateChange: graduates => dispatch(graduateChange(graduates))
+  handleGraduateChange: graduates => dispatch(graduateChange(graduates)),
+  handleLocationChange: event => dispatch(locationChange(event.target.value)),
+  handleAudienceChange: event => dispatch(audienceChange(event.target.value))
 });
 
 export default connect(

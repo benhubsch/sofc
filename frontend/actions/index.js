@@ -61,3 +61,13 @@ export const graduateChange = graduates => ({
   type: types.GRADUATE_CHANGE,
   graduates
 });
+
+export const locationChange = location => ({
+  type: types.EVENT_LOCATION_CHANGE,
+  location
+});
+
+export const audienceChange = audience => ({
+  type: types.EVENT_AUDIENCE_CHANGE,
+  audience
+});

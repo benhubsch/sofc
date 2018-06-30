@@ -4,7 +4,9 @@ import {
   START_TIME_CHANGE,
   END_TIME_CHANGE,
   UNDERGRAD_CHANGE,
-  GRADUATE_CHANGE
+  GRADUATE_CHANGE,
+  EVENT_LOCATION_CHANGE,
+  EVENT_AUDIENCE_CHANGE
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +15,9 @@ const initialState = {
   startTime: null,
   endTime: null,
   undergrads: '',
-  graduates: ''
+  graduates: '',
+  location: '',
+  audience: ''
 };
 
 function eventReducer(state = initialState, action) {
@@ -23,13 +27,17 @@ function eventReducer(state = initialState, action) {
     case EVENT_DATE_CHANGE:
       return { ...state, date: action.date };
     case START_TIME_CHANGE:
-      return { ...state, date: action.startTime };
+      return { ...state, startTime: action.startTime };
     case END_TIME_CHANGE:
-      return { ...state, date: action.endTime };
+      return { ...state, endTime: action.endTime };
     case UNDERGRAD_CHANGE:
       return { ...state, undergrads: action.undergrads };
     case GRADUATE_CHANGE:
       return { ...state, graduates: action.graduates };
+    case EVENT_LOCATION_CHANGE:
+      return { ...state, location: action.location };
+    case EVENT_AUDIENCE_CHANGE:
+      return { ...state, audience: action.audience };
     default:
       return state;
   }
