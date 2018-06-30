@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import { isNumeric } from '../../reducers/organizationReducer';
 
 const format = (cell, i, j) => {
-  console.log('formatting', cell, isNumeric(cell.value));
   if (isNumeric(cell.value) && i > 0 && j > 0) {
     const decimal = Number.parseFloat(cell.value)
       .toFixed(2)

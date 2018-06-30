@@ -104,7 +104,6 @@ const onCellsChanged = (oldGrid, changes) => {
   changes.forEach(({ cell, row, col, value }) => {
     cellUpdate(newGrid, row, col, cell, value.trim());
   });
-  console.log(newGrid);
   return newGrid;
 };
 
