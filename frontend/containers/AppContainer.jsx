@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'react-flexbox-grid';
-import ProgrammingSheet from '../components/programming/ProgrammingSheet';
+import ProgrammingContainer from './ProgrammingContainer';
 import OrganizationContainer from './OrganizationContainer';
 import EventContainer from './EventContainer';
 
@@ -18,7 +18,7 @@ const AppContainer = () => (
   <Grid fluid>
     <OrganizationContainer />
     <EventContainer />
-    <ProgrammingSheet />
+    <ProgrammingContainer />
   </Grid>
 );
 

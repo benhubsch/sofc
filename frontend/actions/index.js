@@ -71,3 +71,13 @@ export const audienceChange = audience => ({
   type: types.EVENT_AUDIENCE_CHANGE,
   audience
 });
+
+export const cellsChange = changes => ({
+  type: types.CELLS_CHANGE,
+  changes
+});
+
+export const rowChange = isAdd => ({
+  type: types.ROW_CHANGE,
+  isAdd
+});

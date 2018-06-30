@@ -21,8 +21,7 @@ const initialState = {
   group: null
 };
 
-export const isNumeric = n =>
-  !Number.isNaN(parseFloat(n)) && Number.isFinite(n);
+export const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line
 
 const validateEmails = values => {
   const emails = [];
@@ -34,7 +33,7 @@ const validateEmails = values => {
   return emails;
 };
 
-function organizationReducer(state = initialState, action) {
+const organizationReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CONTACTS:
       return { ...state, contacts: [...state.contacts, action.contacts] };
@@ -63,6 +62,6 @@ function organizationReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default organizationReducer;

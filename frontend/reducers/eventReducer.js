@@ -20,7 +20,7 @@ const initialState = {
   audience: ''
 };
 
-function eventReducer(state = initialState, action) {
+const eventReducer = (state = initialState, action) => {
   switch (action.type) {
     case EVENT_NAME_CHANGE:
       return { ...state, name: action.name };
@@ -41,6 +41,6 @@ function eventReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default eventReducer;
