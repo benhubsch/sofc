@@ -1,13 +1,19 @@
-const path = require('path');
-const express = require('express');
+const app = require('./app');
+const io = require('./io');
+const server = require('http').Server(app); // eslint-disable-line
 
-const app = express();
-const api = require('./backend/routes');
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+/* eslint-disable */
+server.listen(
+  PORT,
+  error =>
+    error
+      ? console.error(error)
+      : console.info(
+          `==> 🌎 Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`
+        )
+);
+/* eslint-enable */
 
-app.get('/', (request, response) => {
-  response.sendFile('/index.html'); // For React/Redux
-});
-
-app.use('/programming', api);
+io.attach(server);
