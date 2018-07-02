@@ -5,4 +5,4 @@ public/bundle.js
 package-lock.json
 *hot-update.js
 *hot-update.json
-process.env
+db.env
