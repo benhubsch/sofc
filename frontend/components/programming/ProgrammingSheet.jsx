@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DataSheet from 'react-datasheet';
 import classNames from 'classnames';
-import { isNumeric } from '../../reducers/organizationReducer';
+import isNumeric from 'validator/lib/isNumeric';
 
 const format = (cell, i, j) => {
   if (isNumeric(cell.value) && i > 0 && j > 0) {

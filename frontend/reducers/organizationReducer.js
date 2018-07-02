@@ -21,8 +21,6 @@ const initialState = {
   group: null
 };
 
-export const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n); // eslint-disable-line
-
 const validateEmails = values => {
   const emails = [];
   _(values).each(input => {

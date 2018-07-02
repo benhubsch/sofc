@@ -8,7 +8,7 @@ import {
   addRow,
   removeRow
 } from '../components/programming/GridUtils';
-import { isNumeric } from './organizationReducer';
+import isNumeric from 'validator/lib/isNumeric';
 
 const initialState = {
   grid: buildGrid()
