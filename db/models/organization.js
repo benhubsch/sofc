@@ -17,10 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     },
-    contacts: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false
-    }
+    contacts: DataTypes.ARRAY(DataTypes.STRING)
   });
 
   return Organization;

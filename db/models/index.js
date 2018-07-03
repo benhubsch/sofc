@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const path = require('path');
 const dotenv = require('dotenv');
 const Organization = require('./organization');
+const Event = require('./event');
 
 dotenv.config({
   path: path.join(__dirname, '../db.env')
@@ -31,5 +32,6 @@ sequelize
 
 module.exports = {
   sequelize,
-  Organization
+  Organization,
+  Event
 };
