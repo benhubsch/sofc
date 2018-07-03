@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import isNumeric from 'validator/lib/isNumeric';
 
 const format = (cell, i, j) => {
-  if (isNumeric(cell.value) && i > 0 && j > 0) {
+  if (isNumeric(String(cell.value)) && i > 0 && j > 0) {
     const decimal = Number.parseFloat(cell.value)
       .toFixed(2)
       .toString();
