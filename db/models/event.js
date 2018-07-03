@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     undergrads: DataTypes.SMALLINT,
     graduates: DataTypes.SMALLINT,
     location: DataTypes.STRING,
-    audience: DataTypes.STRING
+    audience: DataTypes.TEXT
   });
 
   return Event;

@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize');
 const path = require('path');
 const dotenv = require('dotenv');
-const Organization = require('./organization');
-const Event = require('./event');
+const fs = require('fs');
+
+const db = {};
+const basename = path.basename(__filename);
 
 dotenv.config({
   path: path.join(__dirname, '../db.env')
@@ -19,19 +21,23 @@ const sequelize = new Sequelize(
   }
 );
 
-/* eslint-disable no-console */
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
+fs.readdirSync(__dirname)
+  .filter(
+    file =>
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+  )
+  .forEach(file => {
+    const model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
   });
-/* eslint-enable no-console */
 
-module.exports = {
-  sequelize,
-  Organization,
-  Event
-};
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
