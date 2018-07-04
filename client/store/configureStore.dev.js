@@ -24,9 +24,10 @@ const writeToPostgres = ({ dispatch, getState }) => next => async action => {
   next(action);
   const state = getState();
   if (!action.isEmitted && action.type === 'CELLS_CHANGE') {
-    const res = await axios.post('/api/test', {
+    const res = await axios.post('/api/sheet', {
       id: state.programmingReducer.id,
-      sheet: state.programmingReducer.sheet
+      sheet: state.programmingReducer.sheet,
+      action
     });
     dispatch(setId(res.data.id));
   }

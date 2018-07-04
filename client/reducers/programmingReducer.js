@@ -124,7 +124,6 @@ const adjustRows = (oldSheet, isAdd) => {
 const programmingReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_ID:
-      console.log('SETTING', action);
       return { ...state, id: action.id };
     case CELLS_CHANGE:
       return {
