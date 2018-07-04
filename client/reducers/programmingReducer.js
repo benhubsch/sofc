@@ -1,16 +1,18 @@
 /* eslint-disable */
 import mathjs from 'mathjs';
 import _ from 'lodash';
+import isNumeric from 'validator/lib/isNumeric';
 import { CELLS_CHANGE, ROW_CHANGE } from '../actions/types';
+import { Sheet } from '../server/deb/models';
 
 import {
   buildGrid,
   addRow,
   removeRow
 } from '../components/programming/GridUtils';
-import isNumeric from 'validator/lib/isNumeric';
 
 const initialState = {
+  id: null,
   grid: buildGrid()
 };
 
@@ -120,12 +122,22 @@ const adjustRows = (oldGrid, isAdd) => {
   return newGrid;
 };
 
-const programmingReducer = (state = initialState, action) => {
+const programmingReducer = async (state = initialState, action) => {
   switch (action.type) {
     case CELLS_CHANGE:
+      const grid = onCellsChanged(
+        state.grid.map(row => [...row]),
+        action.changes
+      );
+      const sheet = await Sheet.findById(state.id);
+      if (sheet) {
+        await sheet.update({ sheet: JSON.stringify(grid) });
+      } else {
+        await Sheet.create({ sheet: JSON.stringify(grid) });
+      }
       return {
         ...state,
-        grid: onCellsChanged(state.grid.map(row => [...row]), action.changes)
+        grid
       };
     case ROW_CHANGE:
       return {

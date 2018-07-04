@@ -6,7 +6,7 @@ const server = require('http').Server(app); // eslint-disable-line import/order
 const PORT = process.env.PORT || 3000;
 
 /* eslint-disable no-console */
-models.sequelize.sync({ force: true }).then(() => {
+models.sequelize.sync().then(() => {
   server.listen(
     PORT,
     error =>
