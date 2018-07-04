@@ -44,7 +44,7 @@ const createTotals = grid => {
   grid.push(totals);
 };
 
-export const buildGrid = () => {
+export const buildSheet = () => {
   const grid = [];
   createHeader(grid);
   initRows(grid);

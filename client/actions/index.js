@@ -81,3 +81,8 @@ export const rowChange = isAdd => ({
   type: types.ROW_CHANGE,
   isAdd
 });
+
+export const setId = id => ({
+  type: types.SET_ID,
+  id
+});

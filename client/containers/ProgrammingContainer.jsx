@@ -5,26 +5,26 @@ import ProgrammingSheet from '../components/programming/ProgrammingSheet';
 import { cellsChange, rowChange } from '../actions';
 
 const ProgrammingContainer = ({
-  grid,
+  sheet,
   handleCellsChanged,
   handleRowChange
 }) => (
   <ProgrammingSheet
-    grid={grid}
+    sheet={sheet}
     handleCellsChanged={handleCellsChanged}
     handleRowChange={handleRowChange}
   />
 );
 
 ProgrammingContainer.propTypes = {
-  grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Object)))
+  sheet: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Object)))
     .isRequired,
   handleCellsChanged: PropTypes.func.isRequired,
   handleRowChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  grid: state.programmingReducer.grid
+  sheet: state.programmingReducer.sheet
 });
 
 const mapDispatchToProps = dispatch => ({

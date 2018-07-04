@@ -3,15 +3,17 @@ const models = require('./db/models');
 
 const router = express.Router();
 
-// YOUR API ROUTES HERE
-router.post('/test', (req, res) => {
-  // models.Sheet.create();
-  res.send({ id: '123sdf9sdf1j30e90j' });
-});
-
-// SAMPLE ROUTE
-router.get('/', (req, res) => {
-  res.json({ success: true });
+router.post('/test', async (req, res) => {
+  const sheet = await models.Sheet.findById(req.body.id);
+  if (sheet) {
+    await sheet.update({ sheet: JSON.stringify(req.body.sheet) });
+    res.send({ id: sheet.id });
+  } else {
+    const newSheet = await models.Sheet.create({
+      sheet: JSON.stringify(req.body.sheet)
+    });
+    res.send({ id: newSheet.id });
+  }
 });
 
 module.exports = router;

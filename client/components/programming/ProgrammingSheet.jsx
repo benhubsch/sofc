@@ -34,7 +34,7 @@ const cellRenderer = cellProps => {
   );
 };
 
-const ProgrammingSheet = ({ grid, handleCellsChanged, handleRowChange }) => (
+const ProgrammingSheet = ({ sheet, handleCellsChanged, handleRowChange }) => (
   <div className="container">
     <div className="sheet-container">
       <a href="#" onClick={() => handleRowChange(true)}>
@@ -44,7 +44,7 @@ const ProgrammingSheet = ({ grid, handleCellsChanged, handleRowChange }) => (
         Remove Rows
       </a>
       <DataSheet
-        data={grid}
+        data={sheet}
         valueRenderer={format}
         dataRenderer={cell => cell.expr}
         onCellsChanged={handleCellsChanged}
@@ -55,7 +55,7 @@ const ProgrammingSheet = ({ grid, handleCellsChanged, handleRowChange }) => (
 );
 
 ProgrammingSheet.propTypes = {
-  grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Object)))
+  sheet: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.instanceOf(Object)))
     .isRequired,
   handleCellsChanged: PropTypes.func.isRequired
 };

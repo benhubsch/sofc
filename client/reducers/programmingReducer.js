@@ -2,16 +2,17 @@
 import mathjs from 'mathjs';
 import _ from 'lodash';
 import isNumeric from 'validator/lib/isNumeric';
-import { CELLS_CHANGE, ROW_CHANGE } from '../actions/types';
+import { CELLS_CHANGE, ROW_CHANGE, SET_ID } from '../actions/types';
 
 import {
-  buildGrid,
+  buildSheet,
   addRow,
   removeRow
-} from '../components/programming/GridUtils';
+} from '../components/programming/SheetUtils';
 
 const initialState = {
-  grid: buildGrid()
+  id: null,
+  sheet: buildSheet()
 };
 
 const getCellValue = cell => {
@@ -54,18 +55,18 @@ const isReference = (updatedCell, cell) =>
   cell.expr.indexOf(updatedCell.key) > -1 &&
   cell.key !== updatedCell.key;
 
-const updateTotals = (newGrid, col) => {
-  const totalCell = newGrid[newGrid.length - 1][col];
+const updateTotals = (newSheet, col) => {
+  const totalCell = newSheet[newSheet.length - 1][col];
   let total = 0.0;
-  for (let row = 1; row < newGrid.length - 1; row += 1) {
-    total += getCellValue(newGrid[row][col]);
+  for (let row = 1; row < newSheet.length - 1; row += 1) {
+    total += getCellValue(newSheet[row][col]);
   }
   totalCell.value = total;
 };
 
-const buildVars = newGrid => {
+const buildVars = newSheet => {
   const vars = {};
-  _(newGrid)
+  _(newSheet)
     .flatten()
     .filter(cell => 'key' in cell)
     .each(cell => {
@@ -74,63 +75,66 @@ const buildVars = newGrid => {
   return vars;
 };
 
-const updateReferences = (newGrid, updatedCell) => {
-  for (let r = 0; r < newGrid.length - 1; r += 1) {
-    for (let c = 0; c < newGrid[r].length; c += 1) {
-      const cell = newGrid[r][c];
+const updateReferences = (newSheet, updatedCell) => {
+  for (let r = 0; r < newSheet.length - 1; r += 1) {
+    for (let c = 0; c < newSheet[r].length; c += 1) {
+      const cell = newSheet[r][c];
       if (isReference(updatedCell, cell)) {
-        newGrid[r][c] = cellUpdate(newGrid, cell, cell.expr);
+        newSheet[r][c] = cellUpdate(newSheet, cell, cell.expr);
       }
     }
   }
 };
 
-const cellUpdate = (newGrid, row, col, oldCell, expr) => {
+const cellUpdate = (newSheet, row, col, oldCell, expr) => {
   if (col === 0) {
-    newGrid[row][col] = _.assign(oldCell, { value: expr, expr });
-    return newGrid[row][col];
+    newSheet[row][col] = _.assign(oldCell, { value: expr, expr });
+    return newSheet[row][col];
   }
 
-  const vars = buildVars(newGrid);
+  const vars = buildVars(newSheet);
   const updatedCell = createUpdatedCell(oldCell, expr, vars);
-  newGrid[row][col] = updatedCell;
-  updateReferences(newGrid, updatedCell);
-  updateTotals(newGrid, col);
+  newSheet[row][col] = updatedCell;
+  updateReferences(newSheet, updatedCell);
+  updateTotals(newSheet, col);
   return updatedCell;
 };
 
-const onCellsChanged = (oldGrid, changes) => {
-  const newGrid = oldGrid.map(row => [...row]);
+const onCellsChanged = (oldSheet, changes) => {
+  const newSheet = oldSheet.map(row => [...row]);
   changes.forEach(({ cell, row, col, value }) => {
-    cellUpdate(newGrid, row, col, cell, value.trim());
+    cellUpdate(newSheet, row, col, cell, value.trim());
   });
-  return newGrid;
+  return newSheet;
 };
 
-const adjustRows = (oldGrid, isAdd) => {
-  let newGrid;
+const adjustRows = (oldSheet, isAdd) => {
+  let newSheet;
   if (isAdd) {
-    newGrid = addRow(oldGrid);
+    newSheet = addRow(oldSheet);
   } else {
-    newGrid = removeRow(oldGrid);
-    updateTotals(newGrid, 1);
-    updateTotals(newGrid, 2);
-    updateTotals(newGrid, 3);
+    newSheet = removeRow(oldSheet);
+    updateTotals(newSheet, 1);
+    updateTotals(newSheet, 2);
+    updateTotals(newSheet, 3);
   }
-  return newGrid;
+  return newSheet;
 };
 
 const programmingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_ID:
+      console.log('SETTING', action);
+      return { ...state, id: action.id };
     case CELLS_CHANGE:
       return {
         ...state,
-        grid: onCellsChanged(state.grid.map(row => [...row]), action.changes)
+        sheet: onCellsChanged(state.sheet.map(row => [...row]), action.changes)
       };
     case ROW_CHANGE:
       return {
         ...state,
-        grid: adjustRows(state.grid.map(row => [...row]), action.isAdd)
+        sheet: adjustRows(state.sheet.map(row => [...row]), action.isAdd)
       };
     default:
       return state;

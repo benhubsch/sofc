@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import rootReducer from '../reducers/rootReducer';
 import DevTools from '../containers/DevTools';
+import { setId } from '../actions';
 
 const createSocketIoMiddleware = socket => {
   const emitBound = socket.emit.bind(socket);
@@ -19,13 +20,15 @@ const createSocketIoMiddleware = socket => {
 const socket = io('http://localhost:3000');
 const socketIoMiddleware = createSocketIoMiddleware(socket);
 
-const writeToPostgres = ({ getState }) => next => async action => {
+const writeToPostgres = ({ dispatch, getState }) => next => async action => {
   next(action);
+  const state = getState();
   if (!action.isEmitted && action.type === 'CELLS_CHANGE') {
     const res = await axios.post('/api/test', {
-      data: getState().programmingReducer.grid
+      id: state.programmingReducer.id,
+      sheet: state.programmingReducer.sheet
     });
-    console.log('res', res);
+    dispatch(setId(res.data.id));
   }
 };
 
