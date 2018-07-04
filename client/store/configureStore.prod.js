@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import io from 'socket.io-client';
 import rootReducer from '../reducers/rootReducer';
 
@@ -19,7 +18,4 @@ const socket = io('http://localhost:3000');
 const socketIoMiddleware = createSocketIoMiddleware(socket);
 
 export default initialState =>
-  applyMiddleware(thunkMiddleware, socketIoMiddleware)(createStore)(
-    rootReducer,
-    initialState
-  );
+  applyMiddleware(socketIoMiddleware)(createStore)(rootReducer, initialState);

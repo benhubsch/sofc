@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import io from 'socket.io-client';
+import axios from 'axios';
 import rootReducer from '../reducers/rootReducer';
 import DevTools from '../containers/DevTools';
 
@@ -19,8 +19,19 @@ const createSocketIoMiddleware = socket => {
 const socket = io('http://localhost:3000');
 const socketIoMiddleware = createSocketIoMiddleware(socket);
 
+const writeToPostgres = ({ getState }) => next => action => {
+  next(action);
+  if (!action.isEmitted && action.type === 'CELLS_CHANGE') {
+    axios
+      .post('/api/test', {
+        data: getState().programmingReducer.grid
+      })
+      .then(res => console.log(res.data.id));
+  }
+};
+
 export default initialState =>
-  applyMiddleware(thunkMiddleware, socketIoMiddleware)(createStore)(
+  applyMiddleware(writeToPostgres, socketIoMiddleware)(createStore)(
     rootReducer,
     initialState,
     compose(DevTools.instrument())

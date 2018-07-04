@@ -3,7 +3,6 @@ import mathjs from 'mathjs';
 import _ from 'lodash';
 import isNumeric from 'validator/lib/isNumeric';
 import { CELLS_CHANGE, ROW_CHANGE } from '../actions/types';
-import { Sheet } from '../server/deb/models';
 
 import {
   buildGrid,
@@ -12,7 +11,6 @@ import {
 } from '../components/programming/GridUtils';
 
 const initialState = {
-  id: null,
   grid: buildGrid()
 };
 
@@ -122,22 +120,12 @@ const adjustRows = (oldGrid, isAdd) => {
   return newGrid;
 };
 
-const programmingReducer = async (state = initialState, action) => {
+const programmingReducer = (state = initialState, action) => {
   switch (action.type) {
     case CELLS_CHANGE:
-      const grid = onCellsChanged(
-        state.grid.map(row => [...row]),
-        action.changes
-      );
-      const sheet = await Sheet.findById(state.id);
-      if (sheet) {
-        await sheet.update({ sheet: JSON.stringify(grid) });
-      } else {
-        await Sheet.create({ sheet: JSON.stringify(grid) });
-      }
       return {
         ...state,
-        grid
+        grid: onCellsChanged(state.grid.map(row => [...row]), action.changes)
       };
     case ROW_CHANGE:
       return {
