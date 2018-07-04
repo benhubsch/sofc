@@ -1,4 +1,4 @@
-const models = require('./db/models');
+const models = require('./server/db/models');
 const app = require('./app');
 const io = require('./io');
 const server = require('http').Server(app); // eslint-disable-line import/order
@@ -6,7 +6,7 @@ const server = require('http').Server(app); // eslint-disable-line import/order
 const PORT = process.env.PORT || 3000;
 
 /* eslint-disable no-console */
-models.sequelize.sync().then(() => {
+models.sequelize.sync({ force: true }).then(() => {
   server.listen(
     PORT,
     error =>

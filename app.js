@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const api = require('./backend/routes');
+const api = require('./server/routes');
 
 const app = express();
 

@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: ['./frontend/index'],
+  entry: ['./client/index'],
   module: {
     rules: [
       { test: /\.js?$/, loader: 'babel-loader', exclude: /node_modules/ },
