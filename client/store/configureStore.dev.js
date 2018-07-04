@@ -19,14 +19,13 @@ const createSocketIoMiddleware = socket => {
 const socket = io('http://localhost:3000');
 const socketIoMiddleware = createSocketIoMiddleware(socket);
 
-const writeToPostgres = ({ getState }) => next => action => {
+const writeToPostgres = ({ getState }) => next => async action => {
   next(action);
   if (!action.isEmitted && action.type === 'CELLS_CHANGE') {
-    axios
-      .post('/api/test', {
-        data: getState().programmingReducer.grid
-      })
-      .then(res => console.log(res.data.id));
+    const res = await axios.post('/api/test', {
+      data: getState().programmingReducer.grid
+    });
+    console.log('res', res);
   }
 };
 
