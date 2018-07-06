@@ -23,7 +23,7 @@ const socketIoMiddleware = createSocketIoMiddleware(socket);
 const writeToPostgres = ({ dispatch, getState }) => next => async action => {
   next(action);
   const state = getState();
-  if (!action.isEmitted && action.type === 'CELLS_CHANGE') {
+  if (!action.isEmitted) {
     const res = await axios.post('/api/save', {
       id: state.programmingReducer.id,
       sheet: state.programmingReducer.sheet,
