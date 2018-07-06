@@ -7,7 +7,7 @@ import {
   REMOVE_EMAILS,
   SELECT_GROUP,
   FUNDCODE_CHANGE,
-  SET_ID
+  SET_ORGANIZATION_ID
 } from '../actions/types';
 
 const GROUPS = {
@@ -35,7 +35,7 @@ const validateEmails = values => {
 
 const organizationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ID:
+    case SET_ORGANIZATION_ID:
       return { ...state, id: action.id };
     case ADD_CONTACTS:
       return { ...state, contacts: [...state.contacts, action.contacts] };

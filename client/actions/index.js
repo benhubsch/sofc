@@ -82,7 +82,12 @@ export const rowChange = isAdd => ({
   isAdd
 });
 
-export const setId = id => ({
-  type: types.SET_ID,
+export const setOrganizationId = id => ({
+  type: types.SET_ORGANIZATION_ID,
+  id
+});
+
+export const setSheetId = id => ({
+  type: types.SET_SHEET_ID,
   id
 });

@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import rootReducer from '../reducers/rootReducer';
 import DevTools from '../containers/DevTools';
-import { setId } from '../actions';
+import { setOrganizationId, setSheetId } from '../actions';
 
 const createSocketIoMiddleware = socket => {
   const emitBound = socket.emit.bind(socket);
@@ -24,15 +24,21 @@ const writeToPostgres = ({ dispatch, getState }) => next => async action => {
   next(action);
   const state = getState();
   if (!action.isEmitted) {
-    // const res = await axios.post('/api/sheet', {
-    //   ...state.programmingReducer,
-    //   action
-    // });
-    const res = await axios.post('/api/organization', {
+    const progRes = await axios.post('/api/sheet', {
+      ...state.programmingReducer,
+      action
+    });
+    if (progRes.data.id) {
+      dispatch(setSheetId(progRes.data.id));
+    }
+
+    const orgRes = await axios.post('/api/organization', {
       ...state.organizationReducer,
       action
     });
-    dispatch(setId(res.data.id)); // going to set every ID indiscriminately
+    if (orgRes.data.id) {
+      dispatch(setOrganizationId(orgRes.data.id));
+    }
   }
 };
 

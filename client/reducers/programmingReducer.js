@@ -2,7 +2,7 @@
 import mathjs from 'mathjs';
 import _ from 'lodash';
 import isNumeric from 'validator/lib/isNumeric';
-import { CELLS_CHANGE, ROW_CHANGE, SET_ID } from '../actions/types';
+import { CELLS_CHANGE, ROW_CHANGE, SET_SHEET_ID } from '../actions/types';
 
 import {
   buildSheet,
@@ -123,7 +123,7 @@ const adjustRows = (oldSheet, isAdd) => {
 
 const programmingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ID:
+    case SET_SHEET_ID:
       return { ...state, id: action.id };
     case CELLS_CHANGE:
       return {
