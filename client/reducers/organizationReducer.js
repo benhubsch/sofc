@@ -6,7 +6,8 @@ import {
   ADD_EMAILS,
   REMOVE_EMAILS,
   SELECT_GROUP,
-  FUNDCODE_CHANGE
+  FUNDCODE_CHANGE,
+  SET_ID
 } from '../actions/types';
 
 const GROUPS = {
@@ -15,10 +16,11 @@ const GROUPS = {
 };
 
 const initialState = {
+  id: null,
   contacts: [],
   emails: [],
-  fundCode: '',
-  group: null
+  fundcode: '',
+  name: ''
 };
 
 const validateEmails = values => {
@@ -33,6 +35,8 @@ const validateEmails = values => {
 
 const organizationReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_ID:
+      return { ...state, id: action.id };
     case ADD_CONTACTS:
       return { ...state, contacts: [...state.contacts, action.contacts] };
     case REMOVE_CONTACTS: {
@@ -52,11 +56,11 @@ const organizationReducer = (state = initialState, action) => {
     case SELECT_GROUP:
       return {
         ...state,
-        group: action.group,
-        fundCode: GROUPS[action.group.name]
+        name: action.group,
+        fundcode: GROUPS[action.group.name]
       };
     case FUNDCODE_CHANGE:
-      return { ...state, fundCode: action.fundCode };
+      return { ...state, fundcode: action.fundcode };
     default:
       return state;
   }

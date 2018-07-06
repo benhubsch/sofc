@@ -24,12 +24,15 @@ const writeToPostgres = ({ dispatch, getState }) => next => async action => {
   next(action);
   const state = getState();
   if (!action.isEmitted) {
-    const res = await axios.post('/api/save', {
-      id: state.programmingReducer.id,
-      sheet: state.programmingReducer.sheet,
+    // const res = await axios.post('/api/sheet', {
+    //   ...state.programmingReducer,
+    //   action
+    // });
+    const res = await axios.post('/api/organization', {
+      ...state.organizationReducer,
       action
     });
-    dispatch(setId(res.data.id));
+    dispatch(setId(res.data.id)); // going to set every ID indiscriminately
   }
 };
 

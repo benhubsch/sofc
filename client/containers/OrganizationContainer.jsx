@@ -8,7 +8,7 @@ import {
   removeContacts,
   addEmails,
   removeEmails,
-  fundCodeChange
+  fundcodeChange
 } from '../actions';
 import GroupName from '../components/organization/GroupName';
 import Contacts from '../components/organization/Contacts';
@@ -18,7 +18,7 @@ import FundCode from '../components/organization/FundCode';
 const OrganizationContainer = ({
   contacts,
   emails,
-  fundCode,
+  fundcode,
   handleItemSelect,
   handleContactsAdd,
   handleContactsRemove,
@@ -49,7 +49,7 @@ const OrganizationContainer = ({
       </Col>
       <Col md={3}>
         <FundCode
-          fundCode={fundCode}
+          fundcode={fundcode}
           handleFundCodeChange={handleFundCodeChange}
         />
       </Col>
@@ -65,7 +65,7 @@ OrganizationContainer.propTypes = {
   emails: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleEmailsAdd: PropTypes.func.isRequired,
   handleEmailsRemove: PropTypes.func.isRequired,
-  fundCode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  fundcode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   handleFundCodeChange: PropTypes.func.isRequired
 };
@@ -73,7 +73,7 @@ OrganizationContainer.propTypes = {
 const mapStateToProps = state => ({
   contacts: state.organizationReducer.contacts,
   emails: state.organizationReducer.emails,
-  fundCode: state.organizationReducer.fundCode
+  fundcode: state.organizationReducer.fundcode
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -82,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
   handleContactsRemove: (value, dex) => dispatch(removeContacts(value, dex)),
   handleEmailsAdd: values => dispatch(addEmails(values)),
   handleEmailsRemove: (value, dex) => dispatch(removeEmails(value, dex)),
-  handleFundCodeChange: fundCode => dispatch(fundCodeChange(fundCode))
+  handleFundCodeChange: fundCode => dispatch(fundcodeChange(fundCode))
 });
 
 export default connect(

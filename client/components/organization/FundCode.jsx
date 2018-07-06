@@ -4,11 +4,11 @@ import { NumericInput } from '@blueprintjs/core';
 
 const PLACEHOLDER = 'Fund Code';
 
-const FundCode = ({ fundCode, handleFundCodeChange }) => (
+const FundCode = ({ fundcode, handleFundCodeChange }) => (
   <NumericInput
     className="pt-fill"
     onValueChange={handleFundCodeChange}
-    value={fundCode}
+    value={fundcode}
     placeholder={PLACEHOLDER}
     selectAllOnFocus
     allowNumericCharactersOnly
@@ -16,7 +16,7 @@ const FundCode = ({ fundCode, handleFundCodeChange }) => (
 );
 
 FundCode.propTypes = {
-  fundCode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  fundcode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   handleFundCodeChange: PropTypes.func.isRequired
 };
