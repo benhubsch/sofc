@@ -17,7 +17,6 @@ const dbWrite = async (req, res) => {
       break;
     }
     default:
-      res.send();
   }
 };
 
